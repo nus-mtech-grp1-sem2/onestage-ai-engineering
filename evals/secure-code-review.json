@@ -1,0 +1,1 @@
+{"skill":"secure-code-review","positive":["Threat-model this checkout authorization change.","Review this workflow for secret exposure."],"negative":["Correct spelling in the README.","Summarize k6 results without a security review."]}

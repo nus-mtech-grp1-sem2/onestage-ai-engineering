@@ -1,0 +1,1 @@
+{"skill":"node-service-change","positive":["Add idempotency to the TypeScript booking handler.","Fix graceful shutdown in the Node API."],"negative":["Style the Angular checkout page.","Draft an ADR only."]}

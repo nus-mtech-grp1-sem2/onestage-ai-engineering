@@ -1,0 +1,1 @@
+{"skill":"api-contract-change","positive":["Make the ticket response field nullable.","Version this booking endpoint without breaking the SPA."],"negative":["Rename an internal local variable.","Scale the ECS cluster."]}

@@ -1,0 +1,29 @@
+name: Central policy validation
+on:
+  workflow_call:
+    inputs:
+      pull-request-title: {type: string, required: false, default: ''}
+permissions:
+  contents: read
+concurrency:
+  group: policy-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20'
+          cache: ''
+      - run: node scripts/validate.mjs
+      - run: node scripts/sync-skills.mjs --check
+      - run: node --test tests/*.test.mjs
+      - name: Validate conventional pull request title when supplied
+        if: inputs.pull-request-title != ''
+        env:
+          PR_TITLE: ${{ inputs.pull-request-title }}
+        run: |
+          node -e 'if (!/^(feat|fix|refactor|perf|test|docs|build|ci|chore)(\([a-z0-9-]+\))?!?: .+/.test(process.env.PR_TITLE)) process.exit(1)'

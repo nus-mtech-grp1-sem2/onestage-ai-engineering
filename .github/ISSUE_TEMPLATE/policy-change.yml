@@ -1,0 +1,16 @@
+name: Policy change
+description: Propose a versioned governance change
+title: "policy: "
+body:
+  - type: textarea
+    id: problem
+    attributes: {label: Problem and evidence}
+    validations: {required: true}
+  - type: textarea
+    id: change
+    attributes: {label: Proposed requirement and enforcement}
+    validations: {required: true}
+  - type: textarea
+    id: rollout
+    attributes: {label: Compatibility, rollout, and rollback}
+    validations: {required: true}

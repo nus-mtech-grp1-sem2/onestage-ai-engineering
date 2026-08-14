@@ -1,0 +1,1 @@
+{"skill":"aws-terraform-change","positive":["Review Terraform for the private RDS subnet group.","Add validation for an ECS capacity provider module."],"negative":["Deploy this plan now.","Fix an Angular unit test."]}

@@ -1,0 +1,1 @@
+{"skill":"observability-readiness","positive":["Add actionable alerts for ECS task saturation.","Validate these Prometheus recording rules."],"negative":["Change a button color.","Apply Terraform to production."]}

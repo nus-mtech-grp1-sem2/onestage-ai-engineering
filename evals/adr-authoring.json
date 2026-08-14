@@ -1,0 +1,1 @@
+{"skill":"adr-authoring","positive":["Draft an ADR comparing ECS EC2, Fargate, and EKS.","Record the waiting-room architecture decision."],"negative":["Accept this ADR without review.","Fix one typo in code."]}

@@ -1,0 +1,14 @@
+name: k6 smoke
+on:
+  workflow_call:
+    inputs:
+      script: {type: string, required: true}
+      base-url: {type: string, required: true}
+permissions: {contents: read}
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - run: k6 run --vus 1 --iterations 1 -e BASE_URL="${{ inputs.base-url }}" "${{ inputs.script }}"

@@ -1,0 +1,1 @@
+{"skill":"pr-readiness","positive":["Check whether this backend change is ready for PR review.","Summarize validation and rollout risk before merge."],"negative":["Bypass branch protection and merge.","Diagnose an active outage."]}

@@ -1,0 +1,8 @@
+.env
+.env.*
+*.tfstate
+*.tfstate.*
+*.tfplan
+*credentials*
+*.pem
+*.key
