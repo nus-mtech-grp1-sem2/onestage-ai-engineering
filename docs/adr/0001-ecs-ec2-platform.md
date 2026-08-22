@@ -1,9 +1,17 @@
 # ADR-0001: Use ECS on EC2 for backend services
 
-- Status: proposed
+- Status: superseded by ADR-0003 (2026-08-22)
 - Date: 2026-08-14
 - Owners: OneStage team to assign
 - Review date: before infrastructure implementation
+
+> **Superseded.** Implementation hit a sequence of EC2-launch-type-specific
+> failures (no native public IP support, a DIY NAT instance broken by
+> Amazon Linux 2023 dropping `iptables`, ENI-density limits on small
+> instance types) that didn't resolve within a reasonable troubleshooting
+> window. See [ADR-0003](0003-ecs-fargate-platform.md) for the evidence and
+> the move to Fargate. This document is kept as-is below for the historical
+> record of the original decision and its stated drivers.
 
 ## Context and decision drivers
 

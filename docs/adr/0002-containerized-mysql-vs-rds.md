@@ -55,7 +55,7 @@ Rollback path if this decision is reversed: provision RDS via new Terraform reso
 ## Unresolved decisions
 
 - **A backup strategy for the containerized MySQL data is still required** — e.g., a scheduled task dumping to S3 — independent of whether this ADR's core decision holds.
-- **ADR-0001 is now stale on the EC2-vs-Fargate question**: this session migrated the whole ECS platform from EC2 capacity providers to Fargate (see `backend-repo` git history, commit `079215f`) after unresolved NAT-instance networking issues. ADR-0001 still describes EC2 as the accepted direction; it should be superseded or amended separately from this ADR.
+- ~~ADR-0001 is now stale on the EC2-vs-Fargate question~~ — resolved: see [ADR-0003](0003-ecs-fargate-platform.md), which formally supersedes ADR-0001.
 - RDS Serverless v2 (Option 3) was not fully evaluated — if a future phase needs managed backups/PITR without giving up cost elasticity, it's the more promising RDS-family option to revisit, not standard provisioned RDS.
 - No process yet exists to prevent a repeat of the `onestage-db` incident (undocumented manual resource creation outside Terraform) — worth a short team norm (e.g., "experiments get a `-scratch` tag and a self-imposed deletion date") rather than tooling.
 
