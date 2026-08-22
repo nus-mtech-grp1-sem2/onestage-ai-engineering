@@ -54,11 +54,11 @@ Rollback path if this decision is reversed: provision RDS via new Terraform reso
 
 ## Unresolved decisions
 
-- **A backup strategy for the containerized MySQL data is still required** — e.g., a scheduled task dumping to S3 — independent of whether this ADR's core decision holds.
+- ~~A backup strategy for the containerized MySQL data is still required~~ — resolved: daily AWS Backup coverage of the underlying EFS file system (`backend-repo/infrastructure/terraform/backup.tf`, 7-day retention), chosen over a mysqldump-to-S3 job specifically because it doesn't require MySQL to be running at backup time. Verified with a real on-demand backup job (`State: COMPLETED`, ~200MB). Crash-consistent, not application-consistent — an accepted trade-off, not a formal zero-data-loss guarantee.
 - ~~ADR-0001 is now stale on the EC2-vs-Fargate question~~ — resolved: see [ADR-0003](0003-ecs-fargate-platform.md), which formally supersedes ADR-0001.
 - RDS Serverless v2 (Option 3) was not fully evaluated — if a future phase needs managed backups/PITR without giving up cost elasticity, it's the more promising RDS-family option to revisit, not standard provisioned RDS.
 - No process yet exists to prevent a repeat of the `onestage-db` incident (undocumented manual resource creation outside Terraform) — worth a short team norm (e.g., "experiments get a `-scratch` tag and a self-imposed deletion date") rather than tooling.
 
 ## Approval
 
-Remain `proposed` until the team reviews this trade-off, in particular the missing-backups consequence, and either accepts it as-is or requires a backup job before acceptance.
+Remain `proposed` until the team reviews this trade-off. The missing-backups consequence that originally gated acceptance is now addressed (see Unresolved decisions) — the remaining review is a normal sign-off, not a blocking requirement.
