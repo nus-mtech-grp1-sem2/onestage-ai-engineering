@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0 - 2026-08-22
+
+- Prohibit direct commits and pushes to `main` in `core-frontend` and `backend-repo`; require every change to use a pull request.
+
 ## 0.2.0 - 2026-08-15
 
 - Require OpenAPI 3.x documentation and contract synchronization for backend API and frontend integration changes.
