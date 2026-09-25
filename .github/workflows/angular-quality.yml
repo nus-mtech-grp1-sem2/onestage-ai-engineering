@@ -9,6 +9,10 @@ on:
       test-command: {type: string, required: true}
       build-command: {type: string, required: true}
       audit-command: {type: string, required: true}
+      # Opt-in. Default false keeps fail-fast (a step runs only if all earlier ones passed).
+      # When true, lint/format/test/build/audit all run once install succeeded, so one red
+      # check does not hide the others. The job still fails if any step fails.
+      run-all-steps: {type: boolean, required: false, default: false}
 permissions: {contents: read}
 jobs:
   quality:
@@ -18,9 +22,21 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with: {node-version: '${{ inputs.node-version }}'}
-      - run: ${{ inputs.install-command }}
-      - run: ${{ inputs.lint-command }}
-      - run: ${{ inputs.format-command }}
-      - run: ${{ inputs.test-command }}
-      - run: ${{ inputs.build-command }}
-      - run: ${{ inputs.audit-command }}
+      - name: Install
+        id: install
+        run: ${{ inputs.install-command }}
+      - name: Lint
+        if: ${{ (inputs.run-all-steps && !cancelled() && steps.install.outcome == 'success') || success() }}
+        run: ${{ inputs.lint-command }}
+      - name: Format check
+        if: ${{ (inputs.run-all-steps && !cancelled() && steps.install.outcome == 'success') || success() }}
+        run: ${{ inputs.format-command }}
+      - name: Test
+        if: ${{ (inputs.run-all-steps && !cancelled() && steps.install.outcome == 'success') || success() }}
+        run: ${{ inputs.test-command }}
+      - name: Build
+        if: ${{ (inputs.run-all-steps && !cancelled() && steps.install.outcome == 'success') || success() }}
+        run: ${{ inputs.build-command }}
+      - name: Audit
+        if: ${{ (inputs.run-all-steps && !cancelled() && steps.install.outcome == 'success') || success() }}
+        run: ${{ inputs.audit-command }}
